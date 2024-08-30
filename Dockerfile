@@ -232,6 +232,41 @@ RUN go build -o casaos-main .
 COPY ./CasaOS/build/sysroot/etc/casaos/casaos.conf.sample /etc/casaos/casaos.conf
 
 ############################################################################################################
+# Build the Go binary for the CasaOS Cli
+############################################################################################################
+FROM golang:1.21-alpine AS builder-casaos-cli
+
+WORKDIR /app
+
+COPY ./CasaOS-CLI/go.mod ./
+COPY ./CasaOS-CLI/go.sum ./
+
+#see main.go
+RUN mkdir -p codegen/app_management && \
+    go run github.com/deepmap/oapi-codegen/cmd/oapi-codegen@v1.12.4 \
+    -generate types,client -package app_management https://raw.githubusercontent.com/IceWhaleTech/CasaOS-AppManagement/main/api/app_management/openapi.yaml > codegen/app_management/api.go
+RUN mkdir -p codegen/casaos && \
+    go run github.com/deepmap/oapi-codegen/cmd/oapi-codegen@v1.12.4 \
+    -generate types,client -package casaos https://raw.githubusercontent.com/IceWhaleTech/CasaOS/main/api/casaos/openapi.yaml > codegen/casaos/api.go
+RUN mkdir -p codegen/local_storage && \
+    go run github.com/deepmap/oapi-codegen/cmd/oapi-codegen@v1.12.4 \
+    -generate types,client -package local_storage https://raw.githubusercontent.com/IceWhaleTech/CasaOS-LocalStorage/main/api/local_storage/openapi.yaml > codegen/local_storage/api.go
+RUN mkdir -p codegen/message_bus && \
+    go run github.com/deepmap/oapi-codegen/cmd/oapi-codegen@v1.12.4 \
+    -generate types,client -package message_bus https://raw.githubusercontent.com/IceWhaleTech/CasaOS-MessageBus/main/api/message_bus/openapi.yaml > codegen/message_bus/api.go
+RUN mkdir -p codegen/user_service && \
+    go run github.com/deepmap/oapi-codegen/cmd/oapi-codegen@v1.12.4 \
+    -generate types,client -package user_service https://raw.githubusercontent.com/IceWhaleTech/CasaOS-UserService/main/api/user-service/openapi.yaml > codegen/user_service/api.go
+
+RUN go mod download
+
+COPY ./CasaOS-CLI/build ./build
+COPY ./CasaOS-CLI/cmd ./cmd
+COPY ./CasaOS-CLI/main.go ./main.go
+
+RUN go build -o casaos-cli .
+
+############################################################################################################
 # Build the final image
 ############################################################################################################
 FROM ubuntu:24.04
@@ -245,6 +280,9 @@ RUN curl -fsSL https://get.docker.com -o get-docker.sh && sh get-docker.sh
 
 # Set environment variables
 ENV GO_ENV=production
+ENV REF_SEPARATOR=-
+ENV REF_SCHEME=https
+ENV REF_PORT=443
 
 
 # Set the Current Working Directory inside the container
@@ -292,6 +330,9 @@ COPY ./CasaOS-AppStore/*.json /var/lib/casaos/appstore/default/
 COPY --from=builder-casaos-main /app/casaos-main .
 #COPY --from=builder-casaos-main /etc/casaos/casaos.conf /etc/casaos/casaos.conf
 COPY ./conf/casaos/casaos.conf /etc/casaos/casaos.conf
+
+# Copy the Pre-built binary file from the cli
+COPY --from=builder-casaos-cli /app/casaos-cli .
 
 COPY ./entrypoint.sh ./entrypoint.sh
 RUN chmod +x ./entrypoint.sh

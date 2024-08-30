@@ -30,3 +30,7 @@
 	path = CasaOS-UserService
 	url = https://github.com/worph/CasaOS-UserService.git
 	branch = main
+[submodule "CasaOS-CLI"]
+	path = CasaOS-CLI
+	url = https://github.com/worph/CasaOS-CLI.git
+	branch = main

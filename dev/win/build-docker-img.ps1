@@ -1,5 +1,5 @@
 # Define variables
-$imageName = "casa-os"
+$imageName = "casa-img"
 $dockerfilePath = "../.."
 $originalPath = Get-Location
 
