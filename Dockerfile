@@ -281,8 +281,8 @@ RUN curl -fsSL https://get.docker.com -o get-docker.sh && sh get-docker.sh
 # Set environment variables
 ENV GO_ENV=production
 ENV REF_SEPARATOR=-
-ENV REF_SCHEME=https
-ENV REF_PORT=443
+#ENV REF_SCHEME=https
+#ENV REF_PORT=443
 
 
 # Set the Current Working Directory inside the container
