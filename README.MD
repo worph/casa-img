@@ -7,6 +7,10 @@ Thanks for sponsoring this project
 
 **Yundera** : [yundera.com](https://yundera.com) - Easy to use cloud server for open source container applications.
 
+## Sibling project
+[Mesh-Router](https://github.com/worph/mesh-router) - providing easy management of for domain accessible containers and compatible with CasaIMG.
+
+
 ## Prerequisites
 - Docker must be installed on the host (works on Windows and Linux host)
 - At least 150MB of RAM
@@ -170,7 +174,6 @@ git submodule update --init --recursive
 npx dockflow build
 ```
 
-## Submodule Versions
 ## Submodule Versions
 
 This project integrates various CasaOS components as submodules. Each submodule is tracked at a specific version to ensure stability and compatibility.
