@@ -2,6 +2,11 @@
 
 This project aims to deliver CasaOS (https://github.com/IceWhaleTech/CasaOS) as a docker container.
 
+## Sponsor
+Thanks for sponsoring this project
+
+**Yundera** : [yundera.com](https://yundera.com) - Easy to use cloud server for open source container applications.
+
 ## Prerequisites
 - Docker must be installed on the host (works on Windows and Linux host)
 - At least 150MB of RAM
