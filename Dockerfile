@@ -182,7 +182,8 @@ ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 
 WORKDIR /app
-RUN corepack enable
+#same version as the one in CasaOS-UI package.json
+RUN corepack enable && corepack prepare pnpm@9.0.6 --activate
 
 COPY ./CasaOS-UI/package.json .
 COPY ./CasaOS-UI/pnpm-lock.yaml .
