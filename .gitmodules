@@ -45,3 +45,6 @@
     url = https://github.com/IceWhaleTech/CasaOS-CLI.git
 	branch = v0.4.4
     update = checkout
+[submodule "CasaOS-LocalStorage"]
+	path = CasaOS-LocalStorage
+	url = https://github.com/worph/CasaOS-LocalStorage.git
