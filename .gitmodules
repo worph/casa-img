@@ -22,12 +22,6 @@
 	branch = v0.4.8
     update = checkout
 
-[submodule "CasaOS-LocalStorage"]
-    path = CasaOS-LocalStorage
-    url = https://github.com/IceWhaleTech/CasaOS-LocalStorage.git
-	branch = v0.4.5-2
-    update = checkout
-
 [submodule "CasaOS-MessageBus"]
     path = CasaOS-MessageBus
     url = https://github.com/IceWhaleTech/CasaOS-MessageBus.git
