@@ -29,6 +29,7 @@ chown -R "$PUID:$PGID" /DATA/
 chown -R "$PUID:$PGID" /c/DATA/
 chown -R "$PUID:$PGID" /var/log/casaos
 chown -R "$PUID:$PGID" /var/run/casaos
+chown -R "$PUID:$PGID" /var/lib/casaos
 
 # Create log files with proper ownership
 touch /var/log/casaos-gateway.log
