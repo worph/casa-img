@@ -10,12 +10,6 @@
     branch = casa-img
     update = merge
 
-[submodule "CasaOS-AppStore"]
-    path = CasaOS-AppStore
-    url = https://github.com/IceWhaleTech/CasaOS-AppStore.git
-    branch = main
-    update = checkout
-
 [submodule "CasaOS-Gateway"]
     path = CasaOS-Gateway
     url = https://github.com/IceWhaleTech/CasaOS-Gateway.git

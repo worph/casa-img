@@ -313,10 +313,6 @@ COPY --from=builder-casaos-ui /app/build/sysroot/var/lib/casaos/ /var/lib/casaos
 COPY ./CasaOS-UI/register-ui-events.sh /usr/local/bin/register-ui-events.sh
 RUN chmod +x /usr/local/bin/register-ui-events.sh
 
-# Copy AppStore files
-COPY ./CasaOS-AppStore/Apps /var/lib/casaos/appstore/default/Apps
-COPY ./CasaOS-AppStore/*.json /var/lib/casaos/appstore/default/
-
 # Copy entrypoint
 COPY ./entrypoint.sh /usr/local/bin/entrypoint.sh
 RUN chmod +x /usr/local/bin/entrypoint.sh
